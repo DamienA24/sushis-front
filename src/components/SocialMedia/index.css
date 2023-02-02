@@ -1,0 +1,10 @@
+.container-social-media {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.container-social-media image:hover {
+    cursor: pointer;
+}
