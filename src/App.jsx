@@ -1,7 +1,5 @@
-import { useState } from "react";
-
 import { useAccount, useConnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 import SocialMedia from "./components/SocialMedia";
 import ListImages from "./components/ListImages";
@@ -15,7 +13,7 @@ import "./App.css";
 function App() {
   const { isConnected } = useAccount();
   const { connect } = useConnect({
-    connector: new InjectedConnector(),
+    connector: new MetaMaskConnector(),
   });
   return (
     <div className="App">
