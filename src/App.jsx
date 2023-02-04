@@ -1,5 +1,6 @@
-import { useAccount, useConnect } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { useAccount, useConnect } from "wagmi";
+import { isMobile } from "react-device-detect";
 
 import SocialMedia from "./components/SocialMedia";
 import ListImages from "./components/ListImages";
@@ -15,6 +16,15 @@ function App() {
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
+
+  function handleConnection() {
+    if (isMobile) {
+      window.location.replace(
+        "https://metamask.app.link/dapp/sushis-front.vercel.app/"
+      );
+    }
+    connect();
+  }
   return (
     <div className="App">
       <SocialMedia />
@@ -24,7 +34,10 @@ function App() {
         {isConnected ? (
           ""
         ) : (
-          <button className="button-to-connect" onClick={() => connect()}>
+          <button
+            className="button-to-connect"
+            onClick={() => handleConnection()}
+          >
             <img
               src={eth}
               alt="background sushis"
