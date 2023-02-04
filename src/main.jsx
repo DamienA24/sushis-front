@@ -11,10 +11,7 @@ import App from "./App";
 import "./index.css";
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, goerli, localhost, hardhat],
-  [
-    alchemyProvider({ apiKey: "pVZK3gip9bfYCBV8--HqS6FDY1cHPBG9" }),
-    publicProvider(),
-  ]
+  [alchemyProvider({ apiKey: process.env.API_KEY_ALCHEMY }), publicProvider()]
 );
 
 const wagmiClient = createClient({
