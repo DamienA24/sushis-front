@@ -71,7 +71,7 @@ function Mint() {
 
   useEffect(() => {
     const quantityNftsWallet = parseInt(resultBalance);
-
+    console.log(quantityNftsWallet);
     if (quantityNftsWallet === MAX_NFTS) {
       setNfts(true);
     }
