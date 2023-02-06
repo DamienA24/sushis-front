@@ -1,4 +1,5 @@
-import detectEthereumProvider from "@metamask/detect-provider";
+import { useEffect } from "react";
+
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { useAccount, useConnect } from "wagmi";
 import { isMobile } from "react-device-detect";
@@ -11,7 +12,6 @@ import Mint from "./components/Mint";
 import mainSushi from "./assets/mainSushi.png";
 import eth from "./assets/eth.svg";
 import "./App.css";
-import { useEffect } from "react";
 
 function App() {
   const { isConnected } = useAccount();

@@ -1,8 +1,7 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import {
   usePrepareContractWrite,
-  useContractEvent,
   useContractWrite,
   useContractRead,
   useAccount,
@@ -11,11 +10,12 @@ import {
 import abi from "../../abi/index.json";
 import "./index.css";
 
-const addressContract = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const addressContract = import.meta.env.VITE_ADDRESS_CONTRACT;
+const MAX_SUPPLY = 10000;
 
 function Mint() {
   const [quantity, setQuantity] = useState(0);
-  const [supply, setSupply] = useState(0);
+  const [maxSupply, setSupply] = useState(false);
   const { address } = useAccount();
 
   const { config } = usePrepareContractWrite({
@@ -26,8 +26,7 @@ function Mint() {
     overrides: { gasLimit: 1e7 },
   });
 
-  const { data, isLoading, isSuccess, write, status } =
-    useContractWrite(config);
+  const { isSuccess, write } = useContractWrite(config);
 
   const { data: result, isSuccess: successSupply } = useContractRead({
     address: addressContract,
@@ -61,9 +60,19 @@ function Mint() {
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    const newSupply = parseInt(result);
+
+    if (newSupply === MAX_SUPPLY) {
+      setSupply(true);
+    }
+  }, [result]);
+
   return (
     <div className="container-mint">
-      {resultBalance == 10 ? (
+      {maxSupply ? (
+        <p>All nfts minted, next time maybe :)</p>
+      ) : resultBalance == 10 ? (
         <p>You already minted your 10 sushis</p>
       ) : (
         <>
