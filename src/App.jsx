@@ -13,15 +13,21 @@ import eth from "./assets/eth.svg";
 import "./App.css";
 
 function App() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
+
   async function handleConnection() {
     if (isMobile) {
-      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      if (address) {
+        connect();
+      } else {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      }
+    } else {
+      connect();
     }
-    connect();
   }
   return (
     <div className="App">
