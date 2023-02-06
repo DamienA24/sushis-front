@@ -10,7 +10,6 @@ import Mint from "./components/Mint";
 import mainSushi from "./assets/mainSushi.png";
 import eth from "./assets/eth.svg";
 import "./App.css";
-const provider = await detectEthereumProvider();
 
 function App() {
   const { isConnected } = useAccount();
