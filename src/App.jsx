@@ -12,14 +12,14 @@ import mainSushi from "./assets/mainSushi.png";
 import eth from "./assets/eth.svg";
 import "./App.css";
 
-async function App() {
+function App() {
   const { isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
-  const provider = await detectEthereumProvider();
-  function handleConnection() {
+  async function handleConnection() {
     if (isMobile) {
+      const provider = await detectEthereumProvider();
       if (provider) {
         connect();
       } else {
