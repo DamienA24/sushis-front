@@ -19,12 +19,7 @@ function App() {
   });
   async function handleConnection() {
     if (isMobile) {
-      const provider = await detectEthereumProvider();
-      if (provider) {
-        connect();
-      } else {
-        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
-      }
+      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
     }
     connect();
   }
