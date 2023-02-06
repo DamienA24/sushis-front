@@ -1,5 +1,5 @@
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { useAccount, useConnect } from "wagmi";
+import { useAccount, useConnect, useProvider } from "wagmi";
 import { isMobile } from "react-device-detect";
 
 import SocialMedia from "./components/SocialMedia";
@@ -10,16 +10,22 @@ import Mint from "./components/Mint";
 import mainSushi from "./assets/mainSushi.png";
 import eth from "./assets/eth.svg";
 import "./App.css";
+const provider = await detectEthereumProvider();
 
 function App() {
   const { isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
+  const provider = useProvider();
 
   function handleConnection() {
     if (isMobile) {
-      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      if (provider) {
+        connect();
+      } else {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      }
     }
     connect();
   }
