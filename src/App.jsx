@@ -11,24 +11,28 @@ import Mint from "./components/Mint";
 import mainSushi from "./assets/mainSushi.png";
 import eth from "./assets/eth.svg";
 import "./App.css";
+import { useEffect } from "react";
 
 function App() {
-  const { isConnected, address } = useAccount();
+  const { isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
 
   async function handleConnection() {
     if (isMobile) {
-      if (address) {
-        connect();
-      } else {
-        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
-      }
+      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
     } else {
       connect();
     }
   }
+
+  useEffect(() => {
+    if (isMobile) {
+      connect();
+    }
+  }, []);
+
   return (
     <div className="App">
       <SocialMedia />
