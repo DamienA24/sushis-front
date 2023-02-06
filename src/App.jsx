@@ -19,9 +19,7 @@ function App() {
 
   function handleConnection() {
     if (isMobile) {
-      window.location.replace(
-        "https://metamask.app.link/dapp/sushis-front.vercel.app/"
-      );
+      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
     }
     connect();
   }
