@@ -12,10 +12,11 @@ import "./index.css";
 
 const addressContract = import.meta.env.VITE_ADDRESS_CONTRACT;
 const MAX_SUPPLY = 10000;
-
+const MAX_NFTS = 10;
 function Mint() {
   const [quantity, setQuantity] = useState(0);
   const [maxSupply, setSupply] = useState(false);
+  const [maxNfts, setNfts] = useState(false);
   const { address } = useAccount();
 
   const { config } = usePrepareContractWrite({
@@ -68,11 +69,19 @@ function Mint() {
     }
   }, [result]);
 
+  useEffect(() => {
+    const quantityNftsWallet = parseInt(resultBalance);
+
+    if (quantityNftsWallet === MAX_NFTS) {
+      setNfts(true);
+    }
+  }, [resultBalance]);
+
   return (
     <div className="container-mint">
       {maxSupply ? (
         <p>All nfts minted, next time maybe :)</p>
-      ) : resultBalance == 10 ? (
+      ) : maxNfts ? (
         <p>You already minted your 10 sushis</p>
       ) : (
         <>
