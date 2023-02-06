@@ -3,3 +3,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+  @media only screen and (max-width: 768px) {
+    .container-list-images {
+            justify-content: center;
+            grid-column: 1;
+        }
+  }

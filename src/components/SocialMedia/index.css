@@ -1,10 +1,17 @@
 .container-social-media {
-    grid-column: 1/3;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    grid-column: 1;
 }
 
 .container-social-media image:hover {
     cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+    .container-social-media {
+        grid-column: 1/3;
+        justify-content: flex-end;
+    }
 }

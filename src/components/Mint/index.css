@@ -34,3 +34,12 @@
     font-weight: 800;
     font-size: 20px;
 }
+
+@media only screen and (max-width: 768px) {
+  .container-mint {
+      width: 90%;
+    }
+  .button-mint {
+    margin-bottom: 20px;
+  }
+}

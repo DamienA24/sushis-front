@@ -51,6 +51,8 @@ function App() {
       <div className="container-sushi-mint">
         {isConnected ? (
           <Mint />
+        ) : isMobile ? (
+          ""
         ) : (
           <img
             src={mainSushi}

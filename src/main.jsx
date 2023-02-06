@@ -1,17 +1,18 @@
 import React from "react";
 
 import ReactDOM from "react-dom/client";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
 import { mainnet, goerli, localhost, hardhat } from "wagmi/chains";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 
+import { alchemyKey } from "../config";
 import App from "./App";
 
 import "./index.css";
-const { chains, provider, webSocketProvider } = configureChains(
+const { provider, webSocketProvider } = configureChains(
   [mainnet, goerli, localhost, hardhat],
-  [alchemyProvider({ apiKey: process.env.API_KEY_ALCHEMY }), publicProvider()]
+  [alchemyProvider({ apiKey: alchemyKey }), publicProvider()]
 );
 
 const wagmiClient = createClient({
