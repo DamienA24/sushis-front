@@ -26,7 +26,10 @@ function App() {
 
   async function handleConnection() {
     if (isMobile) {
-      if (window.location.host === "metamask.app.link") {
+      const provider = await detectEthereumProvider();
+      if (!provider) {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      } else {
         const authorizeToConnect = await checkProvider();
 
         if (authorizeToConnect) {
@@ -34,8 +37,6 @@ function App() {
         } else {
           alert(networksAuthorize[0].message);
         }
-      } else {
-        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       }
     } else {
       const authorizeToConnect = await checkProvider();
