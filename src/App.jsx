@@ -32,8 +32,7 @@ function App() {
         navigator.userAgent || navigator.vendor || window.opera
       );
 
-      console.log(inapp);
-      if (inapp.isMobile && !inapp.isInApp) {
+      if (inapp.isMobile) {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
         return;
       }
