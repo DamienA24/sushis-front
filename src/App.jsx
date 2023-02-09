@@ -77,6 +77,9 @@ function App() {
     if (provider) {
       console.log(provider);
       const chainId = await ethereum.request({ method: "eth_chainId" });
+      console.log(parseInt(chainId));
+      console.log(networksAuthorize);
+      console.log(import.meta.env.DEV);
       const networkAuthorize = networksAuthorize.some(
         (network) => network.chainId === parseInt(chainId)
       );
