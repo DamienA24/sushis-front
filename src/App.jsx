@@ -27,7 +27,7 @@ function App() {
   async function handleConnection() {
     if (isMobile) {
       const provider = await detectEthereumProvider();
-      if (!provider) {
+      if (provider?.isBraveWallet) {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       } else {
         const authorizeToConnect = await checkProvider();
