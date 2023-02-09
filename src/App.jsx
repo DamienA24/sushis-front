@@ -33,16 +33,23 @@ function App() {
       );
 
       if (inapp.isInApp) {
-        connect();
+        const authorizeToConnect = await checkProvider();
+
+        if (authorizeToConnect) {
+          connect();
+        } else {
+          alert(networksAuthorize[0].message);
+        }
       } else {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       }
-    }
-    const authorizeToConnect = await checkProvider();
-    if (authorizeToConnect) {
-      connect();
     } else {
-      alert(networksAuthorize[0].message);
+      const authorizeToConnect = await checkProvider();
+      if (authorizeToConnect) {
+        connect();
+      } else {
+        alert(networksAuthorize[0].message);
+      }
     }
   }
 
