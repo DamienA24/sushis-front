@@ -24,13 +24,10 @@ function App() {
   });
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
-  const [providerEth, setProvider] = useState(false);
 
   async function handleConnection() {
     if (isMobile) {
-      if (navigator) {
-        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
-      } else {
+      if (window.location.host === "metamask.app.link") {
         const authorizeToConnect = await checkProvider();
 
         if (authorizeToConnect) {
@@ -38,6 +35,8 @@ function App() {
         } else {
           alert(networksAuthorize[0].message);
         }
+      } else {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       }
     } else {
       const authorizeToConnect = await checkProvider();
