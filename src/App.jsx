@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import { useAccount, useConnect, useNetwork, useDisconnect } from "wagmi";
+import detectEthereumProvider from "@metamask/detect-provider";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { useAccount, useConnect } from "wagmi";
 import { isMobile } from "react-device-detect";
 
 import SocialMedia from "./components/SocialMedia";
@@ -10,7 +11,9 @@ import Text from "./components/Text";
 import Mint from "./components/Mint";
 
 import mainSushi from "./assets/mainSushi.png";
+import { networksAuthorize } from "../config";
 import eth from "./assets/eth.svg";
+
 import "./App.css";
 
 function App() {
@@ -18,12 +21,16 @@ function App() {
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
+  const { disconnect } = useDisconnect();
+  const { chain } = useNetwork();
+  const [providerEth, setProvider] = useState(false);
 
   async function handleConnection() {
     if (isMobile) {
       window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
     } else {
-      connect();
+      const authorizeToConnect = await checkProvider();
+      if (authorizeToConnect) connect();
     }
   }
 
@@ -31,8 +38,52 @@ function App() {
     if (isMobile) {
       connect();
     }
+
+    /*  async function fetchProvider() {
+      const provider = await detectEthereumProvider();
+      if (provider) {
+        ethereum.on("chainChanged", async (chainId) => {
+          const authorizeToConnect = await checkProvider();
+          if (!authorizeToConnect) {
+            disconnect();
+          }
+        });
+      }
+    }
+    fetchProvider(); */
   }, []);
 
+  async function fetchProvider() {
+    const provider = await detectEthereumProvider();
+    if (provider) {
+      setProvider(true);
+    }
+  }
+
+  useEffect(() => {
+    if (chain?.network) {
+      const networkAuthorize = networksAuthorize.some(
+        (network) => network.name === chain.network
+      );
+      if (!networkAuthorize) {
+        disconnect();
+        alert(networksAuthorize[0].message);
+      }
+    }
+  }, [chain]);
+
+  async function checkProvider() {
+    const provider = await detectEthereumProvider();
+    if (provider) {
+      const chainId = await ethereum.request({ method: "eth_chainId" });
+      const networkAuthorize = networksAuthorize.some(
+        (network) => network.chainId === parseInt(chainId)
+      );
+
+      return networkAuthorize;
+    }
+    return false;
+  }
   return (
     <div className="App">
       <SocialMedia />

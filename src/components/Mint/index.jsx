@@ -75,7 +75,6 @@ function Mint() {
       setNfts(true);
     }
   }, [resultBalance]);
-
   return (
     <div className="container-mint">
       {maxSupply ? (
