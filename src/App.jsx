@@ -75,6 +75,7 @@ function App() {
   async function checkProvider() {
     const provider = await detectEthereumProvider();
     if (provider) {
+      console.log(provider);
       const chainId = await ethereum.request({ method: "eth_chainId" });
       const networkAuthorize = networksAuthorize.some(
         (network) => network.chainId === parseInt(chainId)
