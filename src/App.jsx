@@ -4,7 +4,6 @@ import { useAccount, useConnect, useNetwork, useDisconnect } from "wagmi";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { isMobile } from "react-device-detect";
-import InApp from "detect-inapp";
 
 import SocialMedia from "./components/SocialMedia";
 import ListImages from "./components/ListImages";
