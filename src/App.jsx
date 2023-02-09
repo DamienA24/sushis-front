@@ -27,19 +27,26 @@ function App() {
 
   async function handleConnection() {
     if (isMobile) {
-      window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      const provider = await detectEthereumProvider();
+      if (!provider) {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+        return;
+      }
+    }
+    const authorizeToConnect = await checkProvider();
+    if (authorizeToConnect) {
+      connect();
     } else {
-      const authorizeToConnect = await checkProvider();
-      if (authorizeToConnect) connect();
+      alert(networksAuthorize[0].message);
     }
   }
 
-  /*  useEffect(() => {
+  /*   useEffect(() => {
     if (isMobile) {
       connect();
     }
 
-     async function fetchProvider() {
+    async function fetchProvider() {
       const provider = await detectEthereumProvider();
       if (provider) {
         ethereum.on("chainChanged", async (chainId) => {
@@ -50,7 +57,7 @@ function App() {
         });
       }
     }
-    fetchProvider(); 
+    fetchProvider();
   }, []); */
 
   async function fetchProvider() {
