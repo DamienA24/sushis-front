@@ -30,47 +30,19 @@ function App() {
       if (provider?.isBraveWallet) {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       } else {
-        const authorizeToConnect = await checkProvider();
-
-        if (authorizeToConnect) {
-          connect();
-        } else {
-          alert(networksAuthorize[0].message);
-        }
+        checkIfCanConnect();
       }
     } else {
-      const authorizeToConnect = await checkProvider();
-      if (authorizeToConnect) {
-        connect();
-      } else {
-        alert(networksAuthorize[0].message);
-      }
+      checkIfCanConnect();
     }
   }
 
-  /*   useEffect(() => {
-    if (isMobile) {
+  async function checkIfCanConnect() {
+    const authorizeToConnect = await checkProvider();
+    if (authorizeToConnect) {
       connect();
-    }
-
-    async function fetchProvider() {
-      const provider = await detectEthereumProvider();
-      if (provider) {
-        ethereum.on("chainChanged", async (chainId) => {
-          const authorizeToConnect = await checkProvider();
-          if (!authorizeToConnect) {
-            disconnect();
-          }
-        });
-      }
-    }
-    fetchProvider();
-  }, []); */
-
-  async function fetchProvider() {
-    const provider = await detectEthereumProvider();
-    if (provider) {
-      setProvider(true);
+    } else {
+      alert(networksAuthorize[0].message);
     }
   }
 
