@@ -34,12 +34,12 @@ function App() {
     }
   }
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (isMobile) {
       connect();
     }
 
-    /*  async function fetchProvider() {
+     async function fetchProvider() {
       const provider = await detectEthereumProvider();
       if (provider) {
         ethereum.on("chainChanged", async (chainId) => {
@@ -50,8 +50,8 @@ function App() {
         });
       }
     }
-    fetchProvider(); */
-  }, []);
+    fetchProvider(); 
+  }, []); */
 
   async function fetchProvider() {
     const provider = await detectEthereumProvider();
@@ -69,17 +69,16 @@ function App() {
         disconnect();
         alert(networksAuthorize[0].message);
       }
+      if (isMobile) {
+        if (networkAuthorize) connect();
+      }
     }
   }, [chain]);
 
   async function checkProvider() {
     const provider = await detectEthereumProvider();
     if (provider) {
-      console.log(provider);
       const chainId = await ethereum.request({ method: "eth_chainId" });
-      console.log(parseInt(chainId));
-      console.log(networksAuthorize);
-      console.log(import.meta.env.DEV);
       const networkAuthorize = networksAuthorize.some(
         (network) => network.chainId === parseInt(chainId)
       );
