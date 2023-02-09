@@ -4,6 +4,7 @@ import { useAccount, useConnect, useNetwork, useDisconnect } from "wagmi";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { isMobile } from "react-device-detect";
+import InApp from "detect-inapp";
 
 import SocialMedia from "./components/SocialMedia";
 import ListImages from "./components/ListImages";
@@ -27,13 +28,12 @@ function App() {
 
   async function handleConnection() {
     if (isMobile) {
-      const userAgent = window.navigator.userAgent;
+      const inapp = new InApp(
+        navigator.userAgent || navigator.vendor || window.opera
+      );
 
-      const isApp =
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          userAgent
-        );
-      if (!isApp) {
+      console.log(inapp);
+      if (inapp.isMobile && !inapp.isInApp) {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
         return;
       }
