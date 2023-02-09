@@ -27,8 +27,13 @@ function App() {
 
   async function handleConnection() {
     if (isMobile) {
-      const provider = await detectEthereumProvider();
-      if (!provider) {
+      const userAgent = window.navigator.userAgent;
+
+      const isApp =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          userAgent
+        );
+      if (!isApp) {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
         return;
       }
