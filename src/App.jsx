@@ -28,11 +28,9 @@ function App() {
 
   async function handleConnection() {
     if (isMobile) {
-      const inapp = new InApp(
-        navigator.userAgent || navigator.vendor || window.opera
-      );
-
-      if (inapp.isInApp) {
+      if (navigator) {
+        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
+      } else {
         const authorizeToConnect = await checkProvider();
 
         if (authorizeToConnect) {
@@ -40,8 +38,6 @@ function App() {
         } else {
           alert(networksAuthorize[0].message);
         }
-      } else {
-        window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
       }
     } else {
       const authorizeToConnect = await checkProvider();
