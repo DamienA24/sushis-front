@@ -32,9 +32,10 @@ function App() {
         navigator.userAgent || navigator.vendor || window.opera
       );
 
-      if (inapp.isMobile) {
+      if (inapp.isInApp) {
+        connect();
+      } else {
         window.location.replace(import.meta.env.VITE_URL_APP_METAMASK);
-        return;
       }
     }
     const authorizeToConnect = await checkProvider();
