@@ -12,7 +12,7 @@ function SocialMedia() {
           <image href={twitterMedia} width={55} height={55} />
         </svg>
       </a>
-      <a href="https://www.w3schools.com" target="_blank">
+      <a href="https://opensea.io/collection/delicious-sushis" target="_blank">
         <svg width={55} height={60}>
           <image href={openSeaMedia} width={55} height={55} />
         </svg>
