@@ -11,9 +11,10 @@ let networksAuthorize = [
     message: "Wron gNetwork, connect you on localhost",
   },
 ];
-if (import.meta.env.VITE_NODE_ENV) {
+if (import.meta.env.VITE_NODE_ENV === "Development") {
   alchemyKey = import.meta.env.VITE_API_KEY_ALCHEMY;
-} else {
+}
+if (import.meta.env.VITE_NODE_ENV === "production") {
   alchemyKey = process.env.API_KEY_ALCHEMY;
   networksAuthorize = [
     {
