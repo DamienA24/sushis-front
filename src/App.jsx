@@ -5,6 +5,8 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { isMobile } from "react-device-detect";
 
+import ButtonConnect from "./components/ButtonConnect";
+import DisplaySushis from "./components/DisplaySushis";
 import SocialMedia from "./components/SocialMedia";
 import ListImages from "./components/ListImages";
 import Text from "./components/Text";
@@ -12,7 +14,6 @@ import Mint from "./components/Mint";
 
 import mainSushi from "./assets/mainSushi.png";
 import { networksAuthorize } from "../config";
-import eth from "./assets/eth.svg";
 
 import "./App.css";
 
@@ -23,6 +24,8 @@ function App() {
   });
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
+
+  const [seeSushis, setSeeSushis] = useState(false);
 
   async function handleConnection() {
     if (isMobile) {
@@ -73,43 +76,39 @@ function App() {
     }
     return false;
   }
+
+  function handleSushis() {
+    setSeeSushis(!seeSushis);
+  }
+
   return (
     <div className="App">
-      <SocialMedia />
-      <ListImages />
-      <div className="container-text-mint">
-        <Text />
-        {isConnected ? (
-          ""
-        ) : (
-          <button
-            className="button-to-connect"
-            onClick={() => handleConnection()}
-          >
-            <img
-              src={eth}
-              alt="background sushis"
-              height="20"
-              style={{ marginRight: "10px" }}
-            />
-            Free mint
-          </button>
-        )}
-      </div>
-      <div className="container-sushi-mint">
-        {isConnected ? (
-          <Mint />
-        ) : isMobile ? (
-          ""
-        ) : (
-          <img
-            src={mainSushi}
-            alt="background sushis"
-            width="532"
-            height="389"
-          />
-        )}
-      </div>
+      <SocialMedia handleSushis={handleSushis} seeSushis={seeSushis} />
+      {seeSushis ? (
+        <DisplaySushis />
+      ) : (
+        <>
+          <ListImages />
+          <div className="container-text-mint">
+            <Text />
+            <ButtonConnect handleConnection={handleConnection} />
+          </div>
+          <div className="container-sushi-mint">
+            {isConnected ? (
+              <Mint />
+            ) : isMobile ? (
+              ""
+            ) : (
+              <img
+                src={mainSushi}
+                alt="background sushis"
+                width="532"
+                height="389"
+              />
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
