@@ -19,7 +19,14 @@ function DisplaySushis() {
     const result = await alchemySdk.nft.getNftsForOwner(address, {
       contractAddresses: [addressContract],
     });
-    setNfts(result.ownedNfts);
+    if (result.totalCount) {
+      const urls = result.ownedNfts.reduce((acc, nft) => {
+        const url = `https://ipfs.io/ipfs/${nft.rawMetadata.image.slice(7)}`;
+        acc.push(url);
+        return acc;
+      }, []);
+      setNfts(urls);
+    }
     setQuantities(result.totalCount);
     setLoading(false);
   }
@@ -30,7 +37,15 @@ function DisplaySushis() {
     <div>
       <p>You have {quantitiesNfts} sushis</p>
       <div>
-        {nfts.map((nft) => {
+        {nfts.map((nftUrl) => {
+          return (
+            <img
+              src={nftUrl}
+              alt="background sushis"
+              width="532"
+              height="532"
+            />
+          );
           return <p>{nft.rawMetadata.image}</p>;
         })}
       </div>
