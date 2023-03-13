@@ -1,3 +1,5 @@
+import { Network, Alchemy } from "alchemy-sdk";
+
 let alchemyKey = "";
 let networksAuthorize = [
   {
@@ -8,9 +10,15 @@ let networksAuthorize = [
   {
     name: "hardhat",
     chainId: 31337,
-    message: "Wron gNetwork, connect you on localhost",
+    message: "Wrong gNetwork, connect you on localhost",
   },
 ];
+
+let settingsAlchemySdk = {
+  apiKey: "",
+  network: Network.MATIC_MUMBAI,
+};
+
 if (import.meta.env.VITE_NODE_ENV === "Development") {
   alchemyKey = import.meta.env.VITE_API_KEY_ALCHEMY;
 }
@@ -23,6 +31,10 @@ if (import.meta.env.VITE_NODE_ENV === "production") {
       message: "Wrong Network, connect you on polygon matic",
     },
   ];
+  settingsAlchemySdk.network = MATIC_MAINNET;
 }
 
-export { alchemyKey, networksAuthorize };
+settingsAlchemySdk.apiKey = alchemyKey;
+const alchemySdk = new Alchemy(settingsAlchemySdk);
+
+export { alchemyKey, networksAuthorize, alchemySdk };
