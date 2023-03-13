@@ -23,7 +23,7 @@ if (import.meta.env.VITE_NODE_ENV === "Development") {
   alchemyKey = import.meta.env.VITE_API_KEY_ALCHEMY;
 }
 if (import.meta.env.VITE_NODE_ENV === "production") {
-  alchemyKey = process.env.API_KEY_ALCHEMY;
+  alchemyKey = import.meta.env.VITE_API_KEY_ALCHEMY;
   networksAuthorize = [
     {
       name: "matic",
