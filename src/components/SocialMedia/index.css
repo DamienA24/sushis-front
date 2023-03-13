@@ -5,6 +5,9 @@
     grid-column: 1;
 }
 
+.change-space {
+    justify-content: space-evenly;
+}
 .container-social-media image:hover {
     cursor: pointer;
 }
@@ -12,11 +15,10 @@
 .text-see-sushis {
     display: flex;
     font-weight: 900;
-    font-size: 36px;
+    font-size: 22px;
     color: #FFFF00;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    /*animation: neon 5s ease infinite;*/
 }
 
 @media only screen and (min-width: 768px) {
@@ -30,18 +32,11 @@
         display: flex;
         justify-content: end;
     }
+
+    .text-see-sushis {
+        font-size: 36px;
+    }
 }
 
-@keyframes neon {
-    0%,
-    100% {
-        text-shadow: 0 0 10px #FFFF00, 0 0 20px #FFFF00, 0 0 20px #FFFF00, 0 0 20px #FFFF00, 0 0 2px #FFFF00, 2px 2px 2px #FFFF00;
-        color: #FFFF00;
-    }
-    50% {
-        text-shadow: 0 0 2px #FFFF00, 0 0 5px #FFFF00, 0 0 5px #FFFF00, 0 0 5px #FFFF00, 0 0 2px #FFFF00, 4px 4px 2px #FFFF00;
-        color: #eda0d3;
-    }
-}
 
 

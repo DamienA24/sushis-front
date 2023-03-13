@@ -6,9 +6,10 @@ import "./index.css";
 
 function SocialMedia({ handleSushis, seeSushis }) {
   const { isConnected } = useAccount();
-  console.log(seeSushis);
   return (
-    <div className="container-social-media">
+    <div
+      className={`container-social-media ${isConnected ? "change-space" : ""}`}
+    >
       <p className={`text-see-sushis`} onClick={handleSushis}>
         {isConnected ? (seeSushis ? "Back to mint" : "See your sushis") : ""}
       </p>

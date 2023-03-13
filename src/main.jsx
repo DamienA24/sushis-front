@@ -7,7 +7,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 import { alchemyKey } from "../config";
-import App from "./App2";
+import App from "./App";
 
 import "./index.css";
 const { provider, webSocketProvider } = configureChains(
