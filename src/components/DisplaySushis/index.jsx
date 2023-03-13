@@ -21,7 +21,6 @@ function DisplaySushis() {
     const result = await alchemySdk.nft.getNftsForOwner(address, {
       contractAddresses: [addressContract],
     });
-    console.log(result);
     if (result.totalCount) {
       const urls = result.ownedNfts.reduce((acc, nft, index) => {
         const url = `https://ipfs.io/ipfs/${nft.rawMetadata.image.slice(7)}`;
