@@ -5,6 +5,7 @@ import { polygon, polygonMumbai, localhost, hardhat } from "wagmi/chains";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { Analytics } from "@vercel/analytics/react";
 
 import { alchemyKey } from "../config";
 import App from "./App";
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <WagmiConfig client={wagmiClient}>
       <App />
+      <Analytics />
     </WagmiConfig>
   </React.StrictMode>
 );
