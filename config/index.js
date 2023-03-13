@@ -31,7 +31,7 @@ if (import.meta.env.VITE_NODE_ENV === "production") {
       message: "Wrong Network, connect you on polygon matic",
     },
   ];
-  settingsAlchemySdk.network = MATIC_MAINNET;
+  settingsAlchemySdk.network = Network.MATIC_MAINNET;
 }
 
 settingsAlchemySdk.apiKey = alchemyKey;
